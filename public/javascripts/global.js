@@ -8,7 +8,7 @@ $(document).ready(function() {
     populateTable();
 
     // Username link click
-   $('#cardList table tbody').on('click', 'td a.linkshowuser', showCardInfo);
+   $('#cardList table tbody').on('click', 'td a.linkshowcard', showCardInfo);
    $('#btnFilter').on('click', getCards);
 
 });
@@ -27,10 +27,10 @@ function populateTable() {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.name + '">' + this.name + '</a></td>';
+            tableContent += '<td><a href="#" class="linkshowcard" rel="' + this.name + '">' + this.name + '</a></td>';
             tableContent += '<td>' + this.type + '</td>';
             tableContent += '<td>' + this.power + '/' + this.toughness + '</td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">add</a></td>';
+            tableContent += '<td><a href="#" class="" rel="' + this._id + '">add</a></td>';
             tableContent += '</tr>';
         });
 
@@ -39,19 +39,19 @@ function populateTable() {
     });
 };
 
-// Show User Info
+// Show Card Info
 function showCardInfo(event) {
 
     // Prevent Link from Firing
     event.preventDefault();
 
-    // Retrieve username from link rel attribute
+    // Retrieve cardname from link rel attribute
     var thisCardName = $(this).attr('rel');
 
     // Get Index of object based on id value
     var arrayPosition = cardSetData.map(function(arrayItem) { return arrayItem.name; }).indexOf(thisCardName);
 
-    // Get our User Object
+    // Get our Card Object
    var thisCardObject = cardSetData[arrayPosition];
    var powerTougness = thisCardObject.power + ' / ' + thisCardObject.toughness;
 
@@ -70,7 +70,7 @@ function showCardInfo(event) {
 
 }
 
-// Add User
+// Get Cards
 function getCards(event) {
     event.preventDefault();
 

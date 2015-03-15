@@ -1,0 +1,37 @@
+// Filter on card sets
+.filter
+  form(action="")#cardFilter.well
+    .form-group
+      label(for='filterCardName') Card name
+      input#filterCardName.form-control(type='text')
+    .checkbox-inline
+      label
+        input(type='checkbox') 
+        = 'red'
+    .checkbox-inline
+      label
+        input(type='checkbox') 
+        = 'green'
+    .checkbox-inline
+      label
+        input(type='checkbox') 
+        = 'yellow'
+    .checkbox-inline
+      label
+        input(type='checkbox') 
+        = 'blue'
+    .checkbox-inline
+      label
+        input(type='checkbox') 
+        = 'black'
+    .form-group
+      label(for="selectCardSet")
+        select#selectCardSet(name="selectCardSet")
+          option(value="FRF") Fate Reforged
+          option(value="KTK") Khans of Tarkir
+          option(value="M15") Magic 2015 Core Set
+          option(value="JOU") Journey into Nyx
+          option(value="BNG") Born of the Gods
+          option(value="THS") Theros 
+    .form-group
+      button#btnFilter.btn.btn-primary(type='submit') Filter

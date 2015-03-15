@@ -11,11 +11,10 @@ router.get('/cardList', function(req, res) {
     // db.collection('userlist').find().toArray(function (err, items) {
     //     res.json(items);
     // });
-    var code = 'KTK';
     mtgjson(function(err, data) {
     if (err) return console.log(err);
 
-    res.json(data); // Prints out all cards from the Limited Edition Alpha (LEA) set
+      res.json(data.FRF.cards); // Prints out all cards from selected set set
     });
 });
 
