@@ -1,0 +1,99 @@
+extends layout
+
+block content
+  .container
+    h1= title
+    p Welcome to #{title}
+    
+    // Filter
+    .filter
+      form(action="")#cardFilter.well
+        .form-group
+          label(for='filterCardName') Card name
+          input#filterCardName.form-control(type='text')
+        .checkbox-inline
+          label
+            input(type='checkbox') 
+            = 'red'
+        .checkbox-inline
+          label
+            input(type='checkbox') 
+            = 'green'
+        .checkbox-inline
+          label
+            input(type='checkbox') 
+            = 'yellow'
+        .checkbox-inline
+          label
+            input(type='checkbox') 
+            = 'blue'
+        .checkbox-inline
+          label
+            input(type='checkbox') 
+            = 'black'
+        .form-group
+          label(for="cardSet")
+            select#cardSet(name="cardSet")
+              option(value="FRF") Fate Reforged
+              option(value="KTK") Khans of Tarkir
+              option(value="M15") Magic 2015 Core Set
+              option(value="JOU") Journey into Nyx
+              option(value="BNG") Born of the Gods
+              option(value="THS") Theros 
+        .form-group
+          button#btnFilter.btn.btn-primary(type='submit') Filter
+    
+    // Wrapper
+    #wrapper.row
+    
+      // CARD LIST
+      #cardList.col-md-8
+        h2 Card list
+        table.table.table-bordered.table-striped
+          thead
+            th Cardname
+            th Type
+            th P/T
+            th Add?
+          tbody
+          // /CARD LIST
+    
+      // USER INFO
+      #userInfo.col-md-4
+        .infoPanel.well.affix
+          h2 Card Info
+          img(src="", alt="")#cardSpoiler
+          dl.dl-horizontal
+            dt
+              strong Name:
+            dd
+              |  <span id='cardName'></span>
+            dt
+              strong Type:
+            dd
+              |  <span id='cardType'></span>
+            dt
+              strong Mana cost:
+            dd  
+              |  <span id='cardManaCost'></span>
+            dt
+              strong Set:
+            dd  
+              |  <span id='cardSet'></span>
+            dt
+              strong Text:
+            dd
+              | <span id='cardText'></span>
+            dt
+              strong Flavor:
+            dd  
+              | <span id='cardFlavor'></span>
+            dt
+              strong P/T
+            dd
+              | <span id="cardPowerToughness"></span>
+            // /USER INFO
+      
+    
+
+    // /WRAPPER
