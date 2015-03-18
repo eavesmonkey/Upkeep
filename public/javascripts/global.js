@@ -5,7 +5,7 @@ var cardSetData = [];
 $(document).ready(function() {
 
     // Populate the user table on initial page load
-    populateTable();
+    // populateTable();
 
     // Username link click
    $('#cardList table tbody').on('click', 'td a.linkshowcard', showCardInfo);
@@ -16,13 +16,13 @@ $(document).ready(function() {
 // Functions =============================================================
 
 // Fill table with data
-function populateTable() {
+function populateTable(options) {
 
     // Empty content string
     var tableContent = '';
-
+console.log(JSON.stringify(options));
     // jQuery AJAX call for JSON
-    $.getJSON( '/deckbuilder/cardList', function( data ) {
+    $.getJSON( '/deckbuilder/cardList/' + options , function( data ) {
         cardSetData = data;
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
@@ -74,54 +74,53 @@ function showCardInfo(event) {
 function getCards(event) {
     event.preventDefault();
 
+    var filterOptions = {
+        'selectedSet': $('#selectCardSet').val(),
+        'selectedColor': $('#checkRed').val()
+    }
+
+    populateTable(filterOptions);
     // Super basic validation - increase errorCount variable if any fields are blank
-    var errorCount = 0;
-    $('#addUser input').each(function(index, val) {
-        if($(this).val() === '') { errorCount++; }
-    });
+    // var errorCount = 0;
+    // $('#addUser input').each(function(index, val) {
+    //     if($(this).val() === '') { errorCount++; }
+    // });
 
     // Check and make sure errorCount's still at zero
-    if(errorCount === 0) {
+//     if(errorCount === 0) {
+//
+//         // If it is, compile all user info into one object
 
-        // If it is, compile all user info into one object
-        var newUser = {
-            'username': $('#addUser fieldset input#inputUserName').val(),
-            'email': $('#addUser fieldset input#inputUserEmail').val(),
-            'fullname': $('#addUser fieldset input#inputUserFullname').val(),
-            'age': $('#addUser fieldset input#inputUserAge').val(),
-            'location': $('#addUser fieldset input#inputUserLocation').val(),
-            'gender': $('#addUser fieldset input#inputUserGender').val()
-        }
-
-        // Use AJAX to post the object to our adduser service
-        $.ajax({
-            type: 'POST',
-            data: newUser,
-            url: '/deckbuilder/cardList',
-            dataType: 'JSON'
-        }).done(function( response ) {
-
-            // Check for successful (blank) response
-            if (response.msg === '') {
-
-                // Clear the form inputs
-                // $('#addUser fieldset input').val('');
-
-                // Update the table
-                populateTable();
-
-            }
-            else {
-
-                // If something goes wrong, alert the error message that our service returned
-                alert('Error: ' + response.msg);
-
-            }
-        });
-    }
-    else {
-        // If errorCount is more than 0, error out
-        alert('Please fill in all fields');
-        return false;
-    }
+//
+//         // Use AJAX to post the object to our adduser service
+//         $.ajax({
+//             type: 'POST',
+//             data: filterOptions,
+//             url: '/deckbuilder/cardList',
+//             dataType: 'JSON'
+//         }).done(function( response ) {
+//             // Check for successful (blank) response
+// console.log(response.msg);
+//             if (response.msg) {
+//
+//                 // Clear the form inputs
+//                 // $('#addUser fieldset input').val('');
+//
+//                 // Update the table
+//                 populateTable(response.msg);
+//
+//             }
+//             else {
+//
+//                 // If something goes wrong, alert the error message that our service returned
+//                 alert('O No Error: ' + response.msg);
+//
+//             }
+//         });
+//     }
+//     else {
+//         // If errorCount is more than 0, error out
+//         alert('Please fill in all fields');
+//         return false;
+//     }
 };
