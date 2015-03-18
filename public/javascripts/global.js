@@ -84,19 +84,15 @@ function getCards(event) {
     if(errorCount === 0) {
 
         // If it is, compile all user info into one object
-        var newUser = {
-            'username': $('#addUser fieldset input#inputUserName').val(),
-            'email': $('#addUser fieldset input#inputUserEmail').val(),
-            'fullname': $('#addUser fieldset input#inputUserFullname').val(),
-            'age': $('#addUser fieldset input#inputUserAge').val(),
-            'location': $('#addUser fieldset input#inputUserLocation').val(),
-            'gender': $('#addUser fieldset input#inputUserGender').val()
+        var newCardSet = {
+
+            'selectCardSet': $('#selectCardSet').val()
         }
 
         // Use AJAX to post the object to our adduser service
         $.ajax({
             type: 'POST',
-            data: newUser,
+            data: newCardSet,
             url: '/deckbuilder/cardList',
             dataType: 'JSON'
         }).done(function( response ) {

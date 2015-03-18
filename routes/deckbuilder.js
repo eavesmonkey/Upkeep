@@ -13,8 +13,7 @@ router.get('/cardList', function(req, res) {
     // });
     mtgjson(function(err, data) {
     if (err) return console.log(err);
-
-      res.json(data.FRF.cards); // Prints out all cards from selected set set
+      res.json(data['THS'].cards); // Prints out all cards from selected set set
     });
 });
 
@@ -28,7 +27,10 @@ router.post('/cardList', function(req, res) {
     //         (err === null) ? { msg: '' } : { msg: err }
     //     );
     // });
-    console.log(req);
+  // set code
+  var code = req.body['selectCardSet'];
+
+    console.log(req.body['selectCardSet']);
 });
 
 module.exports = router;
