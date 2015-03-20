@@ -2,19 +2,19 @@ var express = require('express');
 var router = express.Router();
 
 var mtgjson = require('mtgjson');
+var queryString = require('querystring');
 
 /*
  * GET
  */
-router.get('/cardList/:obj', function(req, res) {
+router.get('/cardList/:qs?', function(req, res) {
     // var db = req.db;
     // db.collection('userlist').find().toArray(function (err, items) {
     //     res.json(items);
     // });
-    console.log(req.params);
-    var setCode = req.params['selectedSet'];
+    console.log(req.query);
+    var setCode = req.query.selectedSet;
     console.log(setCode);
-    console.log(data[setCode].cards);
 
     mtgjson(function(err, data) {
     if (err) return console.log(err);

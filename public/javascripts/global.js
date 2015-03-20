@@ -20,9 +20,10 @@ function populateTable(options) {
 
     // Empty content string
     var tableContent = '';
-console.log(JSON.stringify(options));
     // jQuery AJAX call for JSON
-    $.getJSON( '/deckbuilder/cardList/' + options , function( data ) {
+    var data = decodeURIComponent($.param(options))
+
+    $.getJSON( '/deckbuilder/cardList?' + data , function( data ) {
         cardSetData = data;
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
