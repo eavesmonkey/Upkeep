@@ -25,14 +25,22 @@ function populateTable(options) {
 
     $.getJSON( '/deckbuilder/cardList?' + data , function( data ) {
         cardSetData = data;
+
+
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
+
+
+            if ($.inArray( "Black", this.colors ) != -1){
+              console.log(this);
+
             tableContent += '<tr>';
             tableContent += '<td><a href="#" class="linkshowcard" rel="' + this.name + '">' + this.name + '</a></td>';
             tableContent += '<td>' + this.type + '</td>';
             tableContent += '<td>' + this.power + '/' + this.toughness + '</td>';
             tableContent += '<td><a href="#" class="" rel="' + this._id + '">add</a></td>';
             tableContent += '</tr>';
+            }
         });
 
         // Inject the whole content string into our existing HTML table
@@ -77,8 +85,8 @@ function getCards(event) {
 
     var filterOptions = {
         'selectedSet': $('#selectCardSet').val(),
-        'selectedColor': $('#checkRed').val()
-    }
+        'selectedColors': [$('#checkRed').prop('checked'), $('#checkBlack').prop('checked'), $('#checkGreen').prop('checked'), $('#checkBlue').prop('checked'), $('#checkWhite').prop('checked')]
+    };
 
     populateTable(filterOptions);
     // Super basic validation - increase errorCount variable if any fields are blank

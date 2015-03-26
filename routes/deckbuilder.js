@@ -13,13 +13,22 @@ router.get('/cardList/:qs?', function(req, res) {
     //     res.json(items);
     // });
     console.log(req.query);
+
     var setCode = req.query.selectedSet;
-    console.log(setCode);
+
+    var setColors = req.query.selectedColors;
+
+
 
     mtgjson(function(err, data) {
-    if (err) return console.log(err);
+      if (err) return console.log(err);
 
-      res.json(data[setCode].cards); // Prints out all cards from selected set set
+      set = data[setCode].cards;
+
+
+
+
+      res.json(set); // Prints out all cards from selected set set
     });
 });
 
