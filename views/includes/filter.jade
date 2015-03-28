@@ -1,38 +1,51 @@
 // Filter on card sets
 .filter
-  form(action="")#cardFilter.well
-    .form-group
-      label(for='filterCardName') Card name
-      input#filterCardName.form-control(type='text')
-    .checkbox-inline
-      label
-        input#checkRed(type='checkbox') 
-        = 'red'
-    .checkbox-inline
-      label
-        input#checkGreen(type='checkbox') 
-        = 'green'
-    .checkbox-inline
-      label
-        input#checkYellow(type='checkbox') 
-        = 'yellow'
-    .checkbox-inline
-      label
-        input#checkBlue(type='checkbox') 
-        = 'blue'
-    .checkbox-inline
-      label
-        input#checkBlack(type='checkbox') 
-        = 'black'
-    .form-group
-      label(for="selectCardSet")
-        select#selectCardSet(name="selectCardSet")
-          option(value="DTK") Dragons of Tarkir
-          option(value="FRF") Fate Reforged
-          option(value="KTK") Khans of Tarkir
-          option(value="M15") Magic 2015 Core Set
-          option(value="JOU") Journey into Nyx
-          option(value="BNG") Born of the Gods
-          option(value="THS") Theros 
-    .form-group
-      button#btnFilter.btn.btn-primary(type='submit') Filter
+  .panel.panel-default
+    .panel-heading
+      .panel-title
+        a(data-toggle='collapse', href="#filterPanel") Card search
+    .panel-body#filterPanel.collapse.in
+      form(action="")#cardFilter
+        .form-group
+          label(for='filterCardName') Card name
+          input#filterCardName.form-control(type='text')
+        .form-group
+          label(for="selectCardType") Card type
+          select#selectCardType.form-control(name="selectCardType")
+            option(value="all")
+            option(value="Instant") Instant
+            option(value="Creature") Creature
+            option(value="Sorcery") Sorcery
+            option(value="Enchantment") Enchantment
+        .checkbox-inline
+          label
+            input#checkRed(type='checkbox', value='Red') 
+            = 'red'
+        .checkbox-inline
+          label
+            input#checkGreen(type='checkbox', value='Green') 
+            = 'green'
+        .checkbox-inline
+          label
+            input#checkWhite(type='checkbox', value='White') 
+            = 'white'
+        .checkbox-inline
+          label
+            input#checkBlue(type='checkbox', value='Blue') 
+            = 'blue'
+        .checkbox-inline
+          label
+            input#checkBlack(type='checkbox', value='Black') 
+            = 'black'
+        .form-group
+          label(for="selectCardSet") Card set
+          select#selectCardSet.form-control(name="selectCardSet")
+            option(value="DTK") Dragons of Tarkir
+            option(value="FRF") Fate Reforged
+            option(value="KTK") Khans of Tarkir
+            option(value="M15") Magic 2015 Core Set
+            option(value="JOU") Journey into Nyx
+            option(value="BNG") Born of the Gods
+            option(value="THS") Theros 
+        .form-group
+          button#btnFilter.btn.btn-primary(type='submit') Filter

@@ -15,20 +15,25 @@ router.get('/cardList/:qs?', function(req, res) {
     console.log(req.query);
 
     var setCode = req.query.selectedSet;
-
-    var setColors = req.query.selectedColors;
-
-
+    var cardColors = req.query.selectedColors;
+    var cardType = req.query.selectedType;
+    var resSet = [];
 
     mtgjson(function(err, data) {
       if (err) return console.log(err);
 
+      // get complete set
       set = data[setCode].cards;
 
+      // apply colorfilter ( TODO currently only one color)
+      resSet = set.filter(function (el) {
+        return el.colors == cardColors[0] &&
+                el.type == cardType;
+      });
 
+      // apply card type filter
 
-
-      res.json(set); // Prints out all cards from selected set set
+      res.json(resSet); // Prints out all cards from selected set set
     });
 });
 
