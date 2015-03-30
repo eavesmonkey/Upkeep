@@ -2,10 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var mtgjson = require('mtgjson');
-var queryString = require('querystring');
 
-/*
- * GET
+/**
+ * Get
  */
 router.get('/cardList/:qs?', function(req, res) {
     // var db = req.db;
@@ -26,19 +25,17 @@ router.get('/cardList/:qs?', function(req, res) {
       set = data[setCode].cards;
 
       // apply colorfilter ( TODO currently only one color)
-      resSet = set.filter(function (el) {
-        return el.colors == cardColors[0] &&
-                el.type == cardType;
+      resSet = filter(set, {
+        colors: cardColors,
+        types: cardType
       });
-
-      // apply card type filter
 
       res.json(resSet); // Prints out all cards from selected set set
     });
 });
 
-/*
- * POST
+/**
+ * Post
  */
 router.post('/cardList', function(req, res) {
     // var db = req.db;
@@ -54,5 +51,19 @@ router.post('/cardList', function(req, res) {
     res.send((err === null) ? { msg: setCode } : { msg: err });
 
 });
+
+/**
+ *
+ * @param arr
+ * @param criteria
+ * @returns {*}
+ */
+function filter(arr, criteria) {
+  return arr.filter(function(obj) {
+    return Object.keys(criteria).every(function(c) {
+      return obj[c] == criteria[c];
+    });
+  });
+}
 
 module.exports = router;

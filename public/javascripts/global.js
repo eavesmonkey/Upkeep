@@ -80,8 +80,14 @@ function getCards(event) {
     var filterOptions = {
         'selectedSet': $('#selectCardSet').val(),
         'selectedColors': [],
-        'selectedType': $('#selectCardType').val(),
+        'selectedType': ''
     };
+
+    if ($('#selectCardType').val() !== "") {
+      console.log($(this));
+      filterOptions['selectedType'] = $(this).val();
+
+    }
 
     // assign selected checkboxes
     $('#cardFilter input[type="checkbox"]').each(function() {
