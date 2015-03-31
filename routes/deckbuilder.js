@@ -16,6 +16,7 @@ router.get('/cardList/:qs?', function(req, res) {
     var setCode = req.query.selectedSet;
     var cardColors = req.query.selectedColors;
     var cardType = req.query.selectedType;
+
     var resSet = [];
 
     mtgjson(function(err, data) {
@@ -24,10 +25,23 @@ router.get('/cardList/:qs?', function(req, res) {
       // get complete set
       set = data[setCode].cards;
 
-      // apply colorfilter ( TODO currently only one color)
-      resSet = filter(set, {
-        colors: cardColors,
-        types: cardType
+
+      // apply colorfilter
+      //resSet = filter(set, {
+      //  colors: cardColors,
+      //  types: cardType
+      //});
+
+      // select cards on selected color
+      resSet = set.filter(function(el) {
+        if (el.colors !== undefined) {
+          var elColors = el.colors;
+
+          return cardColors.every(function(color) {
+            return ~elColors.indexOf(color);
+          });
+        }
+
       });
 
       res.json(resSet); // Prints out all cards from selected set set
