@@ -11,38 +11,44 @@ router.get('/cardList/:qs?', function(req, res) {
     // db.collection('userlist').find().toArray(function (err, items) {
     //     res.json(items);
     // });
+
     console.log(req.query);
 
     var setCode = req.query.selectedSet;
     var cardColors = req.query.selectedColors;
     var cardType = req.query.selectedType;
-
     var resSet = [];
 
     mtgjson(function(err, data) {
       if (err) return console.log(err);
 
       // get complete set
-      set = data[setCode].cards;
+      var cardSet = data[setCode].cards;
 
-
-      // apply colorfilter
-      //resSet = filter(set, {
-      //  colors: cardColors,
-      //  types: cardType
-      //});
+      if (setCode !== '') {
+        resSet = cardSet;
+      }
 
       // select cards on selected color
-      resSet = set.filter(function(el) {
-        if (el.colors !== undefined) {
-          var elColors = el.colors;
+      if (cardColors !== undefined) {
+        resSet = cardSet.filter(function(el) {
+          if (el.colors !== undefined) {
+            var elColors = el.colors;
 
-          return cardColors.every(function(color) {
-            return ~elColors.indexOf(color);
-          });
-        }
+            return cardColors.every(function(color) {
+              return ~elColors.indexOf(color);
+            });
+          }
 
-      });
+        });
+      }
+
+      // select cards on card type
+      if (cardType !== undefined) {
+        resSet = resSet.filter(function(el) {
+           return el.types.indexOf(cardType[0]) != -1;
+        });
+      }
 
       res.json(resSet); // Prints out all cards from selected set set
     });
